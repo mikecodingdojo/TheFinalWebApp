@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %} 
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'main.css'%}">
+    
+    <title>Dashboard</title>
+</head>
+<body>
+    <div class="container sp">
+        
+
+        
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link active" href="/success">Main Feed </a>
+            </li>
+
+            <li>
+                <a class="nav-link active" href="/logout">Logout </a>
+
+            </li>
+
+            
+            
+            
+            </ul>
+            <div class="row">
+        <h1>Hello {{user.first_name}} {{user.last_name}}</h1> 
+
+                <div class="col">
+        <!--Adding files-->
+            <div class="form-group">
+
+                <form action="/add-images" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="file" name='image' required>
+                    <button type="submit" class="btn btn-primary">Post</button>
+                    
+                </form>
+            </div>
+
+            </div>
+    
+<div class="imageload">
+    <p>Gallery</p>
+    
+    {% for image in images %}
+    <a href="/largerpicture ">
+<img class="imagecontainer" src="{{ image.file.url }}" alt="">
+</a>
+
+    
+
+{% endfor %}
+        {% if user.id == request.session.id %}
+        
+        </div>
+        <form action="/dashpost" method="POST" >
+            {% csrf_token %}
+        <div class="mb-3">
+            <label for="post" class="form-label">Post To Wall</label>
+            <textarea class="form-control" name="post" rows="3"></textarea>
+            </div>
+        
+        <button type="submit" class="btn btn-primary">Post</button>
+        
+        </form>
+        {% if user.id == request.session.id %}
+    
+        
+    <h2>Edit User Form:</h2>
+    <form action="/edit/{{user.id}}" method="POST" class="loweredit">
+        {% csrf_token %}
+        <div class="mb-3">
+        
+        
+        <h4>First Name:</h4> <input class="form-control type="text" name='first_name' value={{user.first_name}}>
+        <h4>Last Name:</h4> <input class="form-control type="text" name='last_name' value={{user.last_name}}>
+        <h4>Email:</h4> <input class="form-control type="text" name='email' value={{user.email}}>
+        
+        <button  type="submit" class="btn btn-primary">Submit</button>
+    </div>
+    {%endif%}
+
+
+            </div>
+        </div>
+
+            
+        {%endif%}
+        
+    
+    </div>
+    
+    </div><!--Main Container-->
+    
+
+    
+        
+</body>
+</html>
