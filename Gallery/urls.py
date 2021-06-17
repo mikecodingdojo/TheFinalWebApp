@@ -16,7 +16,7 @@ urlpatterns = [
     path('mdelete/<int:id>', views.delete_message), 
     path('linklogin', views.linklogin),
     path('regpage', views.regpage),
-    path('upload-profile-image', views.upload_profile_image),
+    
     path('add-images',views.add_images),
     path('largerpicture', views.largerpicture), 
     path('dashpost', views.dashpost),
